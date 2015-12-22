@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head><title>Evently</title></head>
+
+<body>
+
+<my-app>Loading...</my-app>
+
+<script src="lib/es6-shim.min.js"></script>
+<script src="lib/system.js"></script>
+<script src="lib/angular2-polyfills.min.js"></script>
+<script src="lib/Rx.min.js"></script>
+<script src="lib/angular2.min.js"></script>
+
+
+<script src="dform.js"></script>
+
+<script>
+	//	System.config({
+	//		packages: {'app': {defaultExtension: 'js'}}
+	//	});
+	System.import("app/boot")
+			.then(function (m) {
+				console.log(m);
+			})
+			.catch(function (e) {
+				console.error(e);
+			})
+	;
+</script>
+
+</body>
+</html>

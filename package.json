@@ -1,0 +1,29 @@
+{
+  "name": "evently-client",
+  "version": "0.0.1",
+  "description": "",
+  "main": "",
+  "author": "Andrej",
+  "license": "MIT",
+  "scripts": {
+    "prepublish": "npm run compile-app",
+    "compile-app": "tsc",
+    "bundle-app": "node scripts/bundle.js",
+    "package-app": "node scripts/package.js",
+    "build-app": "npm run package-app && npm run compile-app && npm run bundle-app"
+  },
+  "dependencies": {
+    "angular2": "2.0.0-beta.0",
+    "systemjs": "0.19.6",
+    "es6-promise": "^3.0.2",
+    "es6-shim": "^0.33.3",
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.0",
+    "zone.js": "0.5.10"
+  },
+  "devDependencies": {
+    "typescript": "^1.7.3",
+    "systemjs-builder": "*",
+    "fs-extra" : "*"
+  }
+}
