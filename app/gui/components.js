@@ -1,4 +1,4 @@
-System.register(['angular2/core', "../domain/service"], function(exports_1) {
+System.register(['angular2/core', "../domain/service", "./gui_model"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,8 +8,8 @@ System.register(['angular2/core', "../domain/service"], function(exports_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, service_1;
-    var EventListComponent;
+    var core_1, service_1, gui_model_1;
+    var EventListComponent, EventDetailsComponent;
     return {
         setters:[
             function (core_1_1) {
@@ -17,26 +17,48 @@ System.register(['angular2/core', "../domain/service"], function(exports_1) {
             },
             function (service_1_1) {
                 service_1 = service_1_1;
+            },
+            function (gui_model_1_1) {
+                gui_model_1 = gui_model_1_1;
             }],
         execute: function() {
             EventListComponent = (function () {
-                function EventListComponent(_applicationService) {
+                function EventListComponent(_applicationService, _guiContext) {
                     var _this = this;
                     this._applicationService = _applicationService;
+                    this._guiContext = _guiContext;
                     _applicationService.getEvents().then(function (events) {
                         return _this._events = events;
                     });
                 }
+                EventListComponent.prototype.onSelect = function (event) {
+                    this._guiContext.selectedEvent = event;
+                    console.info("selected event: " + this._guiContext.selectedEvent.title);
+                };
                 EventListComponent = __decorate([
                     core_1.Component({
                         selector: 'event-list',
-                        template: "\n\t\t<div>\n\t\t    <ul *ngFor=\"#event of _events\">\n\t\t        <li>{{event.title}}</li>\n\t\t    </ul>\n\t\t</div>\n\t"
+                        template: "\n\t\t<div>\n\t\t    <h2>Event list</h2>\n\t\t    <ul>\n\t\t        <li *ngFor=\"#event of _events\" (click)=\"onSelect(event)\">{{event.title}}</li>\n\t\t    </ul>\n\t\t</div>\n\t"
                     }), 
-                    __metadata('design:paramtypes', [service_1.ApplicationService])
+                    __metadata('design:paramtypes', [service_1.ApplicationService, gui_model_1.GuiContext])
                 ], EventListComponent);
                 return EventListComponent;
             })();
             exports_1("EventListComponent", EventListComponent);
+            EventDetailsComponent = (function () {
+                function EventDetailsComponent() {
+                }
+                EventDetailsComponent = __decorate([
+                    core_1.Component({
+                        selector: 'event-details',
+                        template: "\n        <div *ngIf=\"event\">\n            <h2>Event details</h2>\n            <p>{{event.title}}</p>\n        </div>\n    ",
+                        inputs: ['event']
+                    }), 
+                    __metadata('design:paramtypes', [])
+                ], EventDetailsComponent);
+                return EventDetailsComponent;
+            })();
+            exports_1("EventDetailsComponent", EventDetailsComponent);
         }
     }
 });
