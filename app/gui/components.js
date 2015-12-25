@@ -23,24 +23,28 @@ System.register(['angular2/core', "../domain/service", "./gui_model"], function(
             }],
         execute: function() {
             EventListComponent = (function () {
-                function EventListComponent(_applicationService, _guiContext) {
-                    var _this = this;
-                    this._applicationService = _applicationService;
+                function EventListComponent(_guiContext, _appService) {
                     this._guiContext = _guiContext;
-                    _applicationService.getEvents().then(function (events) {
-                        return _this._events = events;
-                    });
+                    this._appService = _appService;
                 }
                 EventListComponent.prototype.onSelect = function (event) {
                     this._guiContext.selectedEvent = event;
                     console.info("selected event: " + this._guiContext.selectedEvent.title);
+                };
+                EventListComponent.prototype.ngAfterViewInit = function () {
+                    console.log('ngAfterViewInit');
+                    this._appService.getUsers()
+                        .subscribe(function (a) {
+                        var users = a.json()['users'];
+                        console.log(users[0]);
+                    });
                 };
                 EventListComponent = __decorate([
                     core_1.Component({
                         selector: 'event-list',
                         template: "\n\t\t<div>\n\t\t    <h2>Event list</h2>\n\t\t    <ul>\n\t\t        <li *ngFor=\"#event of _events\" (click)=\"onSelect(event)\">{{event.title}}</li>\n\t\t    </ul>\n\t\t</div>\n\t"
                     }), 
-                    __metadata('design:paramtypes', [service_1.ApplicationService, gui_model_1.GuiContext])
+                    __metadata('design:paramtypes', [gui_model_1.GuiContext, service_1.ApplicationService])
                 ], EventListComponent);
                 return EventListComponent;
             })();

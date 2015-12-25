@@ -1,7 +1,8 @@
 import {Component} from 'angular2/core';
 import {ApplicationService} from "../domain/service";
-import {EventModel} from "../domain/model";
+import {EventModel, User} from "../domain/model";
 import {GuiContext} from "./gui_model";
+import {AfterViewInit} from "angular2/core";
 
 @Component({
     selector: 'event-list',
@@ -14,26 +15,32 @@ import {GuiContext} from "./gui_model";
 		</div>
 	`
 })
-export class EventListComponent {
-    private _events: EventModel[];
+export class EventListComponent implements AfterViewInit {
+    private _events:EventModel[];
 
-    constructor(private _applicationService:ApplicationService, private _guiContext: GuiContext){
-        _applicationService.getEvents().then(events =>
-            this._events = events
-        );
+    constructor(private _guiContext:GuiContext, private _appService:ApplicationService) {
     }
 
-    onSelect(event:EventModel){
+    onSelect(event:EventModel) {
         this._guiContext.selectedEvent = event;
         console.info(`selected event: ${this._guiContext.selectedEvent.title}`)
     }
-}
 
+    ngAfterViewInit() {
+        console.log('ngAfterViewInit');
+        this._appService.getUsers()
+        .subscribe(a => {
+            var users: User[] = a.json()['users'];
+            console.log(users[0]);
+        });
+    }
+
+}
 
 
 @Component({
     selector: 'event-details',
-    template:`
+    template: `
         <div *ngIf="event">
             <h2>Event details</h2>
             <p>{{event.title}}</p>

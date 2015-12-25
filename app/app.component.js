@@ -25,11 +25,9 @@ System.register(['angular2/core', './gui/gui_module', "./gui/gui_model"], functi
             AppComponent = (function () {
                 function AppComponent(_guiContext) {
                     this._guiContext = _guiContext;
-                    ;
                 }
                 Object.defineProperty(AppComponent.prototype, "selectedEvent", {
                     get: function () {
-                        //if(this._guiContext.selectedEvent) console.log(`access ${this._guiContext.selectedEvent.title}`);
                         return this._guiContext.selectedEvent;
                     },
                     enumerable: true,

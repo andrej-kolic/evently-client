@@ -10,3 +10,13 @@ export class EventModel {
     location: Geolocation;
     startTime: Date;
 }
+
+
+export class User {
+    id: number;
+    token: string;
+}
+
+export class DomainContext {
+    loggedUser: User;
+}

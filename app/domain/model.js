@@ -1,5 +1,5 @@
 System.register([], function(exports_1) {
-    var EventModel;
+    var EventModel, User, DomainContext;
     return {
         setters:[],
         execute: function() {
@@ -9,6 +9,18 @@ System.register([], function(exports_1) {
                 return EventModel;
             })();
             exports_1("EventModel", EventModel);
+            User = (function () {
+                function User() {
+                }
+                return User;
+            })();
+            exports_1("User", User);
+            DomainContext = (function () {
+                function DomainContext() {
+                }
+                return DomainContext;
+            })();
+            exports_1("DomainContext", DomainContext);
         }
     }
 });
