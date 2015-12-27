@@ -8,15 +8,17 @@ import {AfterViewInit} from "angular2/core";
     selector: 'event-list',
     template: `
 		<div>
-		    <h2>Event list</h2>
+		    <h2>User list</h2>
 		    <ul>
-		        <li *ngFor="#event of _events" (click)="onSelect(event)">{{event.title}}</li>
+		        <!--<li *ngFor="#event of _events" (click)="onSelect(event)">{{event.title}}</li>-->
+		        <li *ngFor="#user of _users" (click)="onSelect(event)">{{user.username}}</li>
 		    </ul>
 		</div>
 	`
 })
 export class EventListComponent implements AfterViewInit {
     private _events:EventModel[];
+    private _users:User[];
 
     constructor(private _guiContext:GuiContext, private _appService:ApplicationService) {
     }
@@ -30,8 +32,8 @@ export class EventListComponent implements AfterViewInit {
         console.log('ngAfterViewInit');
         this._appService.getUsers()
         .subscribe(a => {
-            var users: User[] = a.json()['users'];
-            console.log(users[0]);
+            this._users = a.json()['users'];
+            console.log(this._users[0]);
         });
     }
 

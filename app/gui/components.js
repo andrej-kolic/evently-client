@@ -32,17 +32,18 @@ System.register(['angular2/core', "../domain/service", "./gui_model"], function(
                     console.info("selected event: " + this._guiContext.selectedEvent.title);
                 };
                 EventListComponent.prototype.ngAfterViewInit = function () {
+                    var _this = this;
                     console.log('ngAfterViewInit');
                     this._appService.getUsers()
                         .subscribe(function (a) {
-                        var users = a.json()['users'];
-                        console.log(users[0]);
+                        _this._users = a.json()['users'];
+                        console.log(_this._users[0]);
                     });
                 };
                 EventListComponent = __decorate([
                     core_1.Component({
                         selector: 'event-list',
-                        template: "\n\t\t<div>\n\t\t    <h2>Event list</h2>\n\t\t    <ul>\n\t\t        <li *ngFor=\"#event of _events\" (click)=\"onSelect(event)\">{{event.title}}</li>\n\t\t    </ul>\n\t\t</div>\n\t"
+                        template: "\n\t\t<div>\n\t\t    <h2>User list</h2>\n\t\t    <ul>\n\t\t        <!--<li *ngFor=\"#event of _events\" (click)=\"onSelect(event)\">{{event.title}}</li>-->\n\t\t        <li *ngFor=\"#user of _users\" (click)=\"onSelect(event)\">{{user.username}}</li>\n\t\t    </ul>\n\t\t</div>\n\t"
                     }), 
                     __metadata('design:paramtypes', [gui_model_1.GuiContext, service_1.ApplicationService])
                 ], EventListComponent);
